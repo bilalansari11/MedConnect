@@ -1,17 +1,11 @@
+<<<<<<< HEAD:med-connect/src/app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
+=======
+import type { Metadata } from "next";
+>>>>>>> 1173f54 (Remove the unwanted api integration):med-connect/src/app/layout.tsx
 import "./globals.css";
-import Providers from "./provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+<<<<<<< HEAD:med-connect/src/app/layout.jsx
 // Metadata object (Ab bina type annotation ke)
 export const metadata = {
   title: "Create Next App",
@@ -28,6 +22,38 @@ export default function RootLayout({ children }) {
         {/* Providers wrapper */}
         <Providers>{children}</Providers>
       </body>
+=======
+export const metadata: Metadata = {
+  title: "MedConnect - Your Healthcare Platform",
+  description:
+    "MedConnect is a modern healthcare platform that connects patients with doctors for seamless medical appointments and health management.",
+  keywords: [
+    "healthcare",
+    "medical",
+    "appointments",
+    "doctors",
+    "patients",
+    "telemedicine",
+  ],
+  authors: [{ name: "MedConnect Team" }],
+  openGraph: {
+    title: "MedConnect - Your Healthcare Platform",
+    description:
+      "Connect with doctors, manage appointments, and access your medical records all in one place.",
+    type: "website",
+    locale: "en_US",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className="antialiased">{children}</body>
+>>>>>>> 1173f54 (Remove the unwanted api integration):med-connect/src/app/layout.tsx
     </html>
   );
 }
