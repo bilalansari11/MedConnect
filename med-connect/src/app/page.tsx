@@ -14,12 +14,12 @@ const teamMembers = [
   },
   {
     name: "Zain",
-    role: "UI/UX Designer",
+    role: "Backend Engineer",
     image: "Z",
   },
   {
     name: "Asher",
-    role: "Backend Engineer",
+    role: "UI/UX Designer",
     image: "A",
   },
   {
@@ -94,7 +94,7 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-linear-to-b from-blue-50 to-white overflow-x-hidden">
       <Header transparent />
 
       <main className="flex-1">
@@ -118,7 +118,7 @@ export default function HomePage() {
               {/* Main Heading */}
               <h1 className="animate-fade-in-up text-5xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight delay-100">
                 Welcome to{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent animate-gradient-shift">
+                <span className="bg-linear-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent animate-linear-shift">
                   MedConnect
                 </span>
               </h1>
@@ -133,12 +133,12 @@ export default function HomePage() {
               {/* CTA Buttons */}
               <div className="animate-fade-in-up flex flex-col sm:flex-row items-center justify-center gap-4 delay-300">
                 <Link href="/login">
-                  <Button size="lg" className="min-w-[160px] animate-pulse-glow">
+                  <Button size="lg" className="min-w-40 animate-pulse-glow">
                     Login
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button variant="outline" size="lg" className="min-w-[160px] hover-lift">
+                  <Button variant="outline" size="lg" className="min-w-40 hover-lift">
                     Sign Up
                   </Button>
                 </Link>
@@ -220,7 +220,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-white to-blue-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="animate-fade-in-up text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -233,7 +233,7 @@ export default function HomePage() {
 
             <div className="grid md:grid-cols-3 gap-8 relative">
               {/* Connection Lines */}
-              <div className="hidden md:block absolute top-1/4 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200"></div>
+              <div className="hidden md:block absolute top-1/4 left-1/3 right-1/3 h-0.5 bg-linear-to-r from-blue-200 via-blue-400 to-blue-200"></div>
 
               {[
                 {
@@ -257,7 +257,7 @@ export default function HomePage() {
                   className="animate-fade-in-up text-center relative"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4 shadow-lg hover:scale-110 transition-transform duration-300 animate-pulse-glow">
+                  <div className="w-20 h-20 bg-linear-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4 shadow-lg hover:scale-110 transition-transform duration-300 animate-pulse-glow">
                     {item.step}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -292,7 +292,7 @@ export default function HomePage() {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative mb-4">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
+                    <div className="w-24 h-24 bg-linear-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
                       {member.image}
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-green-500 rounded-full border-4 border-white animate-bounce-subtle"></div>
@@ -308,7 +308,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-700 relative overflow-hidden">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-r from-blue-600 to-blue-700 relative overflow-hidden">
           {/* Animated Background */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full">

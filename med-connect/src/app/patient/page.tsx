@@ -378,7 +378,7 @@ export default function PatientDashboard() {
               {/* Profile Card */}
               <Card className="p-6 lg:col-span-1">
                 <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4">
+                  <div className="w-24 h-24 bg-linear-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4">
                     A
                   </div>
                   <h2 className="text-xl font-semibold text-gray-900">
