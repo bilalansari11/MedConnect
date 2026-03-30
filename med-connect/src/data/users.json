@@ -16,5 +16,11 @@
     "username": "bilal",
     "email": "bilal@gmail.com",
     "password": "$2b$12$L5Oefn7/3ZeULSabw21PWuOAISFp8imPT4dahgC1r6XHYi7brxoNa"
+  },
+  {
+    "id": 4,
+    "username": "hussain",
+    "email": "hussian@gmail.com",
+    "password": "$2b$12$fZ6tAeOXOHV/fwPlXHJvauln9fjUi1gnKgqw9qSMD.BB.WwCaTLom"
   }
 ]
