@@ -102,7 +102,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 rounded-3xl p-8 text-white shadow-xl shadow-purple-500/20">
+      <div className="bg-linear-to-r from-purple-600 via-purple-700 to-violet-800 rounded-3xl p-8 text-white shadow-xl shadow-purple-500/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
@@ -128,7 +128,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0 shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white border-0 shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-purple-100 text-sm font-medium">Total Users</p>
@@ -142,7 +142,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Doctors</p>
@@ -156,7 +156,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Patients</p>
@@ -170,7 +170,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white border-0 shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-amber-500 to-amber-600 text-white border-0 shadow-lg shadow-amber-500/20 hover:shadow-xl hover:shadow-amber-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-amber-100 text-sm font-medium">Receptionists</p>
@@ -187,7 +187,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
       {/* User Management Table */}
       <Card className="overflow-hidden shadow-lg border-0">
-        <div className="bg-gradient-to-r from-purple-600 to-violet-700 px-6 py-4 text-white">
+        <div className="bg-linear-to-r from-purple-600 to-violet-700 px-6 py-4 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -228,7 +228,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
                   <tr key={userItem.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-10 h-10 bg-linear-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center text-white font-semibold text-sm">
                           {userItem.username?.charAt(0).toUpperCase()}
                         </div>
                         <div>

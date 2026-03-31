@@ -94,7 +94,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
   return (
     <div className="space-y-8">
       {/* Welcome Section - Teal/Cyan Theme */}
-      <div className="bg-gradient-to-r from-teal-500 via-cyan-600 to-blue-600 rounded-3xl p-8 text-white shadow-xl shadow-teal-500/20">
+      <div className="bg-linear-to-r from-teal-500 via-cyan-600 to-blue-600 rounded-3xl p-8 text-white shadow-xl shadow-teal-500/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
@@ -120,7 +120,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
 
       {/* Stats Grid - Teal Theme */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-teal-500 to-teal-600 text-white border-0 shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-teal-500 to-teal-600 text-white border-0 shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-teal-100 text-sm font-medium">Today</p>
@@ -134,7 +134,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-cyan-100 text-sm font-medium">Upcoming</p>
@@ -148,7 +148,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Completed</p>
@@ -165,7 +165,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
 
       {/* Appointments Section */}
       <Card className="overflow-hidden shadow-lg border-0">
-        <div className="bg-gradient-to-r from-teal-600 to-cyan-700 px-6 py-4 text-white">
+        <div className="bg-linear-to-r from-teal-600 to-cyan-700 px-6 py-4 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -217,7 +217,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
               <div key={apt.id} className="p-6 hover:bg-slate-50 transition-colors">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-teal-500/30">
+                    <div className="w-14 h-14 bg-linear-to-br from-teal-400 to-cyan-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-teal-500/30">
                       {apt.patientName?.charAt(0).toUpperCase()}
                     </div>
                     <div>

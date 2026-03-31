@@ -146,7 +146,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
   return (
     <div className="space-y-8">
       {/* Welcome Section - Light Blue Theme */}
-      <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-600 rounded-3xl p-8 text-white shadow-xl shadow-blue-500/20">
+      <div className="bg-linear-to-r from-blue-500 via-blue-600 to-cyan-600 rounded-3xl p-8 text-white shadow-xl shadow-blue-500/20">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
@@ -170,7 +170,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
 
       {/* Stats Grid - Light Blue Theme */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Upcoming</p>
@@ -184,7 +184,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-lg shadow-cyan-500/20 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-cyan-100 text-sm font-medium">Pending</p>
@@ -198,7 +198,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-400 to-blue-500 text-white border-0 shadow-lg shadow-blue-400/20 hover:shadow-xl hover:shadow-blue-400/30 transition-all duration-300 hover:-translate-y-1">
+        <Card className="p-6 bg-linear-to-br from-blue-400 to-blue-500 text-white border-0 shadow-lg shadow-blue-400/20 hover:shadow-xl hover:shadow-blue-400/30 transition-all duration-300 hover:-translate-y-1">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Completed</p>
@@ -215,7 +215,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
 
       {/* Available Doctors Section */}
       <Card className="overflow-hidden shadow-lg border-0">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
+        <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,7 +245,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
                   key={doctor.id}
                   className="flex items-center space-x-4 p-4 bg-slate-50 rounded-xl hover:bg-blue-50 transition-colors border border-slate-100 hover:border-blue-200"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
+                  <div className="w-12 h-12 bg-linear-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
                     {doctor.username?.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1">
@@ -261,7 +261,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
 
       {/* My Appointments Section */}
       <Card className="overflow-hidden shadow-lg border-0">
-        <div className="bg-gradient-to-r from-blue-600 to-cyan-700 px-6 py-4 text-white">
+        <div className="bg-linear-to-r from-blue-600 to-cyan-700 px-6 py-4 text-white">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,7 +302,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
               <div key={apt.id} className="p-6 hover:bg-slate-50 transition-colors">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="flex items-center space-x-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
+                    <div className="w-14 h-14 bg-linear-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
@@ -344,7 +344,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
       {showNewAppointment && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <Card className="w-full max-w-lg p-0 overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
+            <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 text-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">

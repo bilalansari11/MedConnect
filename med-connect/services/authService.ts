@@ -1,17 +1,32 @@
 import { hash, compare } from "bcrypt";
 import { Prisma } from "@prisma/client";
 import { prisma } from "../src/app/api/lib/prisma";
+import path from "path";
+import fs from "fs";
 import { Role } from "@prisma/client"; // Prisma ka apna enum import karo
 
 export type UserRole = "ADMIN" | "DOCTOR" | "RECEPTIONIST" | "PATIENT";
 
 export interface UserData {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  createdAt?: Date;
+  id: number;
+  username: string;
+  email: string; 
+  password?: string;
+  role?: UserRole;
+  createdAt?: string;
 }
+
+const filePath = path.join(process.cwd(), "src", "data", "users.json");
+
+export function getAllUsers(): UserData[] {
+  try {
+    const data = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
+
 
 // 2. Verify Password (Purana logic, same rahega)
 export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {

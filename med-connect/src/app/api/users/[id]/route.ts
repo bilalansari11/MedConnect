@@ -7,20 +7,19 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const idNum = parseInt(id);
     const body = await request.json();
     const { role } = body;
 
-    const validRoles: UserRole[] = ["admin", "doctor", "receptionist", "patient"];
+    const validRoles: UserRole[] = ["ADMIN", "DOCTOR", "RECEPTIONIST", "PATIENT"];
     
     if (!role || !validRoles.includes(role)) {
       return NextResponse.json(
-        { errorMessage: "Invalid role. Must be one of: admin, doctor, receptionist, patient" },
+        { errorMessage: "Invalid role. Must be one of: ADMIN, DOCTOR, RECEPTIONIST, PATIENT" },
         { status: 400 }
       );
     }
 
-    const success = updateUserRole(idNum, role);
+    const success = updateUserRole(id, role);
 
     if (!success) {
       return NextResponse.json(

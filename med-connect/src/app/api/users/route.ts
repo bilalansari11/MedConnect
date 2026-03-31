@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const users = getAllUsers();
     // Remove password from response
-    const safeUsers = users.map(({ password, ...user }) => user);
+    const safeUsers = users.map(({ password, ...user }: UserData) => user);
     return NextResponse.json({ users: safeUsers });
   } catch (e: any) {
     return NextResponse.json(
