@@ -11,7 +11,7 @@ export default function PatientForm() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log("Patient Data submitted:", formData);
-    alert("Form saved locally! Ab pull request bhej saktay hain.");
+    alert("Form saved locally, Now Pull request send.");
   };
 
   const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -24,12 +24,12 @@ export default function PatientForm() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Date of Birth *</label>
+            <label className="block text-sm font-medium text-gray-700">Date of Birth </label>
             <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} className="w-full mt-1 p-2 border rounded-md" required />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Blood Group *</label>
+            <label className="block text-sm font-medium text-gray-700">Blood Group </label>
             <select name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} className="w-full mt-1 p-2 border rounded-md" required>
               <option value="">Select Blood Group</option>
               {bloodGroups.map((bg) => (<option key={bg} value={bg}>{bg}</option>))}
