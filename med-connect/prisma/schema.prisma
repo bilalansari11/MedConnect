@@ -7,15 +7,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  image     String?
-  role      Role     @default(PATIENT)
-  createdAt DateTime @default(now())
-  password  String?
-  doctor    Doctor?
-  patient   Patient?
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  image         String?
+  role          Role           @default(PATIENT)
+  createdAt     DateTime       @default(now())
+  password      String?
+  doctor        Doctor?
+  patient       Patient?
+  symptomChecks SymptomCheck[]
 }
 
 model Doctor {
@@ -68,6 +69,15 @@ model Slot {
   endTime   String
   isBooked  Boolean   @default(false)
   doctor    Doctor    @relation(fields: [doctorId], references: [id])
+}
+
+model SymptomCheck {
+  id        String   @id @default(cuid())
+  userId    String
+  symptom   String
+  advice    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 enum Role {

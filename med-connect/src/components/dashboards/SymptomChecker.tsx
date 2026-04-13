@@ -5,9 +5,26 @@ const SymptomChecker = () => {
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
 
-  const handleCheck = () => {
+  const handleCheck = async () => {
     const advice = checkSymptoms(input);
     setResult(advice);
+
+    // --- Database mein save karne ka code ---
+    try {
+      await fetch('/api/symptoms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          symptom: input,
+          advice: advice,
+          userId: "YAHAN_USER_ID_AYEGA" // Agar authentication hai toh user ki ID pass karein
+        }),
+      });
+      console.log("Data saved to DB!");
+    } catch (error) {
+      console.error("Failed to save:", error);
+    }
+    // ----------------------------------------
   };
 
   return (
