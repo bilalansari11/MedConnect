@@ -1,5 +1,5 @@
 "use client";
-
+import SymptomChecker from './SymptomChecker';
 import { useState, useEffect } from "react";
 import { Card, Button } from "@/components";
 import PatientForm from "../PatientForm";
@@ -467,6 +467,12 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
           </Card>
         </div>
       )}
+
+      {/* 🌟 SYMPTOM CHECKER AB YAHAN SAHI JAGAH PAR HAI 🌟 */}
+      <div className="mt-12 pb-10">
+        <SymptomChecker />
+      </div>
+      
     </div>
   );
 }

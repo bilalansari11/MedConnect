@@ -6,7 +6,20 @@ datasource db {
   provider = "postgresql"
 }
 
+
 model User {
+
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  image         String?
+  role          Role           @default(PATIENT)
+  createdAt     DateTime       @default(now())
+  password      String?
+  doctor        Doctor?
+  patient       Patient?
+  symptomChecks SymptomCheck[]
+=======
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
@@ -19,6 +32,8 @@ model User {
   doctor        Doctor?
   patient       Patient?
   sessions      Session[]
+
+
 }
 
 model Doctor {
@@ -73,6 +88,15 @@ model Slot {
   doctor    Doctor    @relation(fields: [doctorId], references: [id])
 }
 
+<<<<<<< HEAD
+model SymptomCheck {
+  id        String   @id @default(cuid())
+  userId    String
+  symptom   String
+  advice    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+=======
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -97,6 +121,7 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+>>>>>>> upstream/main
 }
 
 enum Role {
