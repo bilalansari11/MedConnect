@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card } from "@/components";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 interface User {
   id: string;
@@ -19,12 +20,6 @@ interface AdminDashboardProps {
     role?: string;
   };
 }
-
-const roleColors: Record<string, { bg: string; text: string; border: string }> = {
-  admin: { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-200" },
-  doctor: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
-  patient: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
-};
 
 const roleOptions = ["admin", "doctor", "patient"];
 
@@ -49,8 +44,6 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
       const data = await res.json();
       if (data.users) {
         setUsers(data.users);
-        
-        // Calculate stats
         setStats({
           totalUsers: data.users.length,
           totalDoctors: data.users.filter((u: User) => u.role === "doctor").length,
@@ -66,24 +59,19 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
 
   const handleRoleUpdate = async (userId: string) => {
     if (!selectedRole) return;
-
     try {
       const res = await fetch(`/api/users/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ role: selectedRole }),
       });
-
       if (res.ok) {
-        setUsers(users.map(u => 
-          u.id === userId ? { ...u, role: selectedRole } : u
-        ));
-        setEditingUser(null);
-        setSelectedRole("");
-        // Refresh stats
         const updatedUsers = users.map(u => 
           u.id === userId ? { ...u, role: selectedRole } : u
         );
+        setUsers(updatedUsers);
+        setEditingUser(null);
+        setSelectedRole("");
         setStats({
           totalUsers: updatedUsers.length,
           totalDoctors: updatedUsers.filter((u: User) => u.role === "doctor").length,
@@ -96,198 +84,379 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
   };
 
   return (
-    <div className="space-y-8">
-      {/* Welcome Section */}
-      <div className="bg-linear-to-r from-purple-600 via-purple-700 to-violet-800 rounded-3xl p-8 text-white shadow-xl shadow-purple-500/20">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              Welcome back, {user.name}!
-            </h2>
-            <p className="text-purple-100 text-lg">
-              Admin Dashboard Overview & User Management
-            </p>
-          </div>
-          <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm text-purple-100">Access Level</p>
-              <p className="font-bold">Administrator</p>
-            </div>
+    <div className="flex min-h-screen relative font-body bg-[#f7f9fb] text-[#191c1e]">
+      {/* SideNavBar */}
+      <aside className="flex flex-col h-screen sticky left-0 top-0 border-r-0 bg-teal-50/50 backdrop-blur-xl tracking-tight py-8 px-4 w-64 z-50">
+        <div className="mb-10 px-4">
+          <h1 className="text-xl font-bold font-headline text-teal-900">MedConnect</h1>
+          <p className="text-xs font-medium text-teal-800/60 uppercase tracking-widest mt-1">Clinical Portal</p>
+        </div>
+        <nav className="flex-1 space-y-2 overflow-y-auto no-scrollbar">
+          <a className="flex items-center gap-3 px-4 py-3 bg-white text-teal-700 font-semibold rounded-2xl shadow-sm scale-95 transition-all duration-200" href="#">
+            <span className="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 font-medium hover:bg-teal-100/50 transition-all duration-300" href="#">
+            <span className="material-symbols-outlined">calendar_today</span>
+            <span>Appointments</span>
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 font-medium hover:bg-teal-100/50 transition-all duration-300" href="#">
+            <span className="material-symbols-outlined">groups</span>
+            <span>Patients</span>
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 font-medium hover:bg-teal-100/50 transition-all duration-300" href="#">
+            <span className="material-symbols-outlined">chat_bubble</span>
+            <span>Messages</span>
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 font-medium hover:bg-teal-100/50 transition-all duration-300" href="#">
+            <span className="material-symbols-outlined">monitoring</span>
+            <span>Analytics</span>
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 text-slate-500 font-medium hover:bg-teal-100/50 transition-all duration-300" href="#">
+            <span className="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+          </a>
+        </nav>
+        <div className="mt-auto space-y-2 pt-6">
+          <button className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-br from-[#005c55] to-[#0f766e] text-white rounded-full font-semibold shadow-lg shadow-[#005c55]/20 hover:shadow-[#005c55]/40 transition-all active:scale-95 cursor-pointer">
+            <span className="material-symbols-outlined">add_circle</span>
+            <span>New Consultation</span>
+          </button>
+          <div className="pt-6 border-t border-teal-100/30">
+            <a className="flex items-center gap-3 px-4 py-2 text-slate-500 font-medium hover:text-teal-700 transition-colors" href="#">
+              <span className="material-symbols-outlined">help</span>
+              <span>Help Center</span>
+            </a>
+            <button onClick={() => signOut({ callbackUrl: "/" })} className="w-full flex items-center gap-3 px-4 py-2 text-slate-500 font-medium hover:text-[#ba1a1a] transition-colors cursor-pointer text-left">
+              <span className="material-symbols-outlined">logout</span>
+              <span>Logout</span>
+            </button>
           </div>
         </div>
-      </div>
+      </aside>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white border-0 shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-1">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-purple-100 text-sm font-medium">Total Users</p>
-              <p className="text-4xl font-bold mt-1">{stats.totalUsers}</p>
-            </div>
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col min-w-0 bg-[#f7f9fb]">
+        {/* TopAppBar */}
+        <header className="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-2xl flex justify-between items-center h-16 px-8 border-b-0 shadow-[0_20px_50px_rgba(0,92,85,0.06)]">
+          <div className="flex items-center gap-4 flex-1">
+            <div className="relative max-w-md w-full">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+              <input className="w-full pl-10 pr-4 py-2 bg-[#e0e3e5] border-none rounded-xl text-sm focus:ring-2 focus:ring-[#005c55]/20 transition-all outline-none" placeholder="Search patient files, doctors, or reports..." type="text" />
             </div>
           </div>
-        </Card>
-
-        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-blue-100 text-sm font-medium">Doctors</p>
-              <p className="text-4xl font-bold mt-1">{stats.totalDoctors}</p>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <button className="text-slate-600 hover:text-teal-700 transition-colors cursor-pointer">
+                <span className="material-symbols-outlined">notifications</span>
+              </button>
+              <Link href="/" className="text-slate-600 hover:text-teal-700 transition-colors cursor-pointer">
+                <span className="material-symbols-outlined">home</span>
+              </Link>
             </div>
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white border-0 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-blue-100 text-sm font-medium">Patients</p>
-              <p className="text-4xl font-bold mt-1">{stats.totalPatients}</p>
-            </div>
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+            <div className="h-8 w-px bg-slate-200"></div>
+            <div className="flex items-center gap-3">
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-bold text-teal-700">{user.name || "Administrator"}</p>
+                <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-tighter">System Admin</p>
+              </div>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white bg-[#005c55] ring-2 ring-[#005c55]/10">
+                {user.name ? user.name.charAt(0).toUpperCase() : "A"}
+              </div>
             </div>
           </div>
-        </Card>
-      </div>
+        </header>
 
-      {/* User Management Table */}
-      <Card className="overflow-hidden shadow-lg border-0">
-        <div className="bg-linear-to-r from-purple-600 to-violet-700 px-6 py-4 text-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+        {/* Dashboard Content */}
+        <div className="p-8 space-y-8 overflow-y-auto">
+          {/* Hero Section */}
+          <section className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-1">
+              <h2 className="text-4xl font-extrabold tracking-tight font-headline text-[#191c1e]">Command Center</h2>
+              <p className="text-[#3e4947] font-medium">Monitoring clinic efficiency and patient flow in real-time.</p>
+            </div>
+            <div className="flex gap-3">
+              <div className="px-4 py-2 bg-[#80f9c8] text-[#007353] rounded-full text-sm font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#006c4e] animate-pulse"></span>
+                System Live
+              </div>
+              <div className="px-4 py-2 bg-[#e6e8ea] rounded-full text-sm font-semibold text-[#3e4947]">
+                {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </div>
+            </div>
+          </section>
+
+          {/* Bento Grid Metrics */}
+          <section className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="col-span-1 bg-[#f2f4f6] p-6 rounded-xl border-none flex flex-col justify-between h-40 group hover:bg-white transition-all duration-300 shadow-sm">
+              <div className="flex justify-between items-start">
+                <span className="material-symbols-outlined text-[#005c55] bg-[#9cf2e8] p-2 rounded-xl">groups</span>
+                <span className="text-[#006c4e] font-bold text-sm">Active</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold">User Management</h3>
-                <p className="text-purple-100 text-sm">Manage user roles and permissions</p>
+                <p className="text-4xl font-extrabold text-[#191c1e] font-headline">{loading ? "-" : stats.totalUsers}</p>
+                <p className="text-sm font-semibold text-[#3e4947]">Total Users</p>
               </div>
             </div>
-            <div className="text-sm bg-white/20 px-3 py-1 rounded-full">
-              {users.length} Total Users
+            <div className="col-span-1 bg-[#f2f4f6] p-6 rounded-xl border-none flex flex-col justify-between h-40 group hover:bg-white transition-all duration-300 shadow-sm">
+              <div className="flex justify-between items-start">
+                <span className="material-symbols-outlined text-[#005c55] bg-[#9cf2e8] p-2 rounded-xl">medical_services</span>
+              </div>
+              <div>
+                <p className="text-4xl font-extrabold text-[#191c1e] font-headline">{loading ? "-" : stats.totalDoctors}</p>
+                <p className="text-sm font-semibold text-[#3e4947]">Specialists (Doctors)</p>
+              </div>
             </div>
-          </div>
-        </div>
+            <div className="col-span-1 bg-[#f2f4f6] p-6 rounded-xl border-none flex flex-col justify-between h-40 group hover:bg-white transition-all duration-300 shadow-sm">
+              <div className="flex justify-between items-start">
+                <span className="material-symbols-outlined text-[#005c55] bg-[#9cf2e8] p-2 rounded-xl">accessible</span>
+              </div>
+              <div>
+                <p className="text-4xl font-extrabold text-[#191c1e] font-headline">{loading ? "-" : stats.totalPatients}</p>
+                <p className="text-sm font-semibold text-[#3e4947]">Registered Patients</p>
+              </div>
+            </div>
+            <div className="col-span-1 bg-[#f2f4f6] p-6 rounded-xl border-none flex flex-col justify-between h-40 group hover:bg-white transition-all duration-300 shadow-sm">
+              <div className="flex justify-between items-start">
+                <span className="material-symbols-outlined text-[#005c55] bg-[#9cf2e8] p-2 rounded-xl">speed</span>
+                <span className="text-[#006c4e] font-bold text-sm">98.2%</span>
+              </div>
+              <div>
+                <p className="text-4xl font-extrabold text-[#191c1e] font-headline">4.8s</p>
+                <p className="text-sm font-semibold text-[#3e4947]">Avg Response Time</p>
+              </div>
+            </div>
+          </section>
 
-        {loading ? (
-          <div className="p-8 text-center">
-            <div className="w-10 h-10 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-            <p className="text-slate-500">Loading users...</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">User</th>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">Email</th>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">Current Role</th>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">Joined</th>
-                  <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {users.map((userItem) => (
-                  <tr key={userItem.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-linear-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center text-white font-semibold text-sm">
-                          {userItem.username?.charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-slate-800">{userItem.username}</p>
-                          <p className="text-xs text-slate-500">ID: {userItem.id}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <p className="text-slate-600">{userItem.email}</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      {editingUser === userItem.id ? (
-                        <div className="flex items-center space-x-2">
-                          <select
-                            value={selectedRole}
-                            onChange={(e) => setSelectedRole(e.target.value)}
-                            className="px-3 py-1.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
-                          >
-                            <option value="">Select role</option>
-                            {roleOptions.map((role) => (
-                              <option key={role} value={role}>
-                                {role.charAt(0).toUpperCase() + role.slice(1)}
-                              </option>
-                            ))}
-                          </select>
-                          <button
-                            onClick={() => handleRoleUpdate(userItem.id)}
-                            disabled={!selectedRole}
-                            className="px-3 py-1.5 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                          >
-                            Save
-                          </button>
-                          <button
-                            onClick={() => {
-                              setEditingUser(null);
-                              setSelectedRole("");
-                            }}
-                            className="px-3 py-1.5 bg-slate-200 text-slate-700 text-sm rounded-lg hover:bg-slate-300 transition-colors"
-                          >
-                            Cancel
-                          </button>
-                        </div>
+          {/* Analytics & Tables Bento */}
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Activity Chart Column */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Chart Area */}
+              <div className="bg-[#f2f4f6] rounded-xl p-8 h-[400px] flex flex-col shadow-sm">
+                <div className="flex justify-between items-center mb-8">
+                  <div>
+                    <h3 className="text-xl font-bold font-headline">Patient Inflow</h3>
+                    <p className="text-sm text-[#3e4947]">Weekly statistical analysis</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button className="px-3 py-1 bg-white rounded-lg text-xs font-bold shadow-sm cursor-pointer border border-[#e0e3e5]">Weekly</button>
+                    <button className="px-3 py-1 text-xs font-bold text-[#3e4947] cursor-pointer">Monthly</button>
+                  </div>
+                </div>
+                <div className="flex-1 flex items-end justify-between gap-4 px-2">
+                  <div className="w-full bg-[#005c55]/10 rounded-t-xl h-1/2 relative group transition-all hover:h-[60%]">
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#191c1e] text-white text-[10px] px-2 py-1 rounded">240</div>
+                  </div>
+                  <div className="w-full bg-[#005c55]/20 rounded-t-xl h-2/3 relative group transition-all hover:h-[70%]"></div>
+                  <div className="w-full bg-[#005c55]/10 rounded-t-xl h-1/3 relative group transition-all hover:h-[40%]"></div>
+                  <div className="w-full bg-[#005c55]/40 rounded-t-xl h-3/4 relative group transition-all hover:h-[80%]"></div>
+                  <div className="w-full bg-[#005c55]/30 rounded-t-xl h-1/2 relative group transition-all hover:h-[55%]"></div>
+                  <div className="w-full bg-[#005c55] rounded-t-xl h-5/6 relative group transition-all hover:h-[90%]"></div>
+                  <div className="w-full bg-[#005c55]/10 rounded-t-xl h-1/4 relative group transition-all hover:h-[30%]"></div>
+                </div>
+                <div className="flex justify-between mt-4 px-2 text-[10px] font-bold text-[#3e4947] uppercase tracking-widest">
+                  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                </div>
+              </div>
+
+              {/* Management Table */}
+              <div className="bg-[#f2f4f6] rounded-xl overflow-hidden shadow-sm border border-[#eceef0]">
+                <div className="p-6 flex justify-between items-center border-b border-[#eceef0]">
+                  <h3 className="text-xl font-bold font-headline">Platform Users</h3>
+                  <button className="text-[#005c55] text-sm font-bold flex items-center gap-1 cursor-pointer">Total: {users.length}</button>
+                </div>
+                <div className="overflow-x-auto max-h-[400px]">
+                  <table className="w-full text-left">
+                    <thead className="sticky top-0 bg-[#f2f4f6] z-10">
+                      <tr className="text-[10px] font-bold text-[#3e4947] uppercase tracking-widest bg-[#e6e8ea]/50">
+                        <th className="px-6 py-4">User Details</th>
+                        <th className="px-6 py-4">Email</th>
+                        <th className="px-6 py-4">Current Role</th>
+                        <th className="px-6 py-4 text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#eceef0] bg-white text-[#191c1e]">
+                      {loading ? (
+                        <tr>
+                          <td colSpan={4} className="p-8 text-center">
+                            <div className="w-8 h-8 border-4 border-[#005c55] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                            <p className="text-sm font-bold text-[#3e4947]">Loading directory...</p>
+                          </td>
+                        </tr>
+                      ) : users.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="p-8 text-center">
+                            <p className="text-sm font-bold text-[#3e4947]">No users found</p>
+                          </td>
+                        </tr>
                       ) : (
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold capitalize ${roleColors[userItem.role || "patient"]?.bg || "bg-slate-100"} ${roleColors[userItem.role || "patient"]?.text || "text-slate-700"}`}>
-                          {userItem.role || "patient"}
-                        </span>
+                        users.map((userItem) => (
+                          <tr key={userItem.id} className="hover:bg-[#f7f9fb] transition-colors">
+                            <td className="px-6 py-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-sm border border-teal-200">
+                                  {userItem.username?.charAt(0).toUpperCase() || "?"}
+                                </div>
+                                <div className="space-y-0.5">
+                                  <span className="block text-sm font-semibold">{userItem.username}</span>
+                                  <span className="block text-[10px] text-[#3e4947]">Joined {userItem.createdAt ? new Date(userItem.createdAt).toLocaleDateString() : "N/A"}</span>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-[#3e4947]">{userItem.email}</td>
+                            <td className="px-6 py-4">
+                              {editingUser === userItem.id ? (
+                                <select
+                                  value={selectedRole}
+                                  onChange={(e) => setSelectedRole(e.target.value)}
+                                  className="px-3 py-1.5 text-xs border border-[#bdc9c6] rounded-full focus:ring-2 focus:ring-[#005c55] outline-none"
+                                >
+                                  <option value="">Select role</option>
+                                  {roleOptions.map((r) => (
+                                    <option key={r} value={r}>{r.toUpperCase()}</option>
+                                  ))}
+                                </select>
+                              ) : (
+                                <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                                  userItem.role === 'admin' ? 'bg-purple-100 text-purple-700' : 
+                                  userItem.role === 'doctor' ? 'bg-[#9cf2e8] text-[#00201d]' : 
+                                  'bg-[#80f9c8] text-[#007353]'
+                                }`}>
+                                  {userItem.role || 'patient'}
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-6 py-4 text-center">
+                              {editingUser === userItem.id ? (
+                                <div className="flex items-center justify-center gap-2">
+                                  <button onClick={() => handleRoleUpdate(userItem.id)} disabled={!selectedRole} className="w-8 h-8 flex items-center justify-center text-[#005c55] bg-[#9cf2e8]/50 hover:bg-[#9cf2e8] rounded-full transition-colors disabled:opacity-50 cursor-pointer">
+                                    <span className="material-symbols-outlined text-sm">check</span>
+                                  </button>
+                                  <button onClick={() => { setEditingUser(null); setSelectedRole(""); }} className="w-8 h-8 flex items-center justify-center text-[#ba1a1a] bg-[#ffdad6]/50 hover:bg-[#ffdad6] rounded-full transition-colors cursor-pointer">
+                                    <span className="material-symbols-outlined text-sm">close</span>
+                                  </button>
+                                </div>
+                              ) : (
+                                <button onClick={() => { setEditingUser(userItem.id); setSelectedRole(userItem.role || "patient"); }} className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-[#005c55] bg-transparent hover:bg-[#9cf2e8]/30 rounded-full transition-colors cursor-pointer" title="Edit Role">
+                                  <span className="material-symbols-outlined text-sm">edit</span>
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))
                       )}
-                    </td>
-                    <td className="px-6 py-4">
-                      <p className="text-slate-600 text-sm">
-                        {userItem.createdAt ? new Date(userItem.createdAt).toLocaleDateString() : "N/A"}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4">
-                      {editingUser !== userItem.id && (
-                        <button
-                          onClick={() => {
-                            setEditingUser(userItem.id);
-                            setSelectedRole(userItem.role || "patient");
-                          }}
-                          className="inline-flex items-center space-x-1 px-3 py-1.5 text-purple-600 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors text-sm font-medium"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>
-                          <span>Edit Role</span>
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </Card>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Side Action Column */}
+            <div className="space-y-8">
+              {/* Quick Actions */}
+              <div className="bg-[#005c55] p-8 rounded-xl text-white space-y-6 shadow-xl shadow-[#005c55]/10">
+                <h3 className="text-xl font-bold font-headline">Quick Shortcuts</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <button className="flex flex-col items-center justify-center p-4 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors text-center cursor-pointer">
+                    <span className="material-symbols-outlined text-2xl mb-2">person_add</span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">New Patient</span>
+                  </button>
+                  <button className="flex flex-col items-center justify-center p-4 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors text-center cursor-pointer">
+                    <span className="material-symbols-outlined text-2xl mb-2">lab_research</span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">Lab Results</span>
+                  </button>
+                  <button className="flex flex-col items-center justify-center p-4 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors text-center cursor-pointer">
+                    <span className="material-symbols-outlined text-2xl mb-2">prescriptions</span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">Prescription</span>
+                  </button>
+                  <button className="flex flex-col items-center justify-center p-4 bg-white/10 hover:bg-white/20 rounded-2xl transition-colors text-center cursor-pointer">
+                    <span className="material-symbols-outlined text-2xl mb-2">summarize</span>
+                    <span className="text-xs font-bold uppercase tracking-tighter">Billing</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* System Health Card */}
+              <div className="bg-[#f2f4f6] rounded-xl p-8 space-y-6 shadow-sm border border-[#eceef0]">
+                <h3 className="text-xl font-bold font-headline">Server Resources</h3>
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                      <span className="text-[#3e4947]">CPU Usage</span>
+                      <span className="text-[#005c55]">34%</span>
+                    </div>
+                    <div className="h-2 w-full bg-[#e6e8ea] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#005c55] w-[34%] rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                      <span className="text-[#3e4947]">Database Storage</span>
+                      <span className="text-[#006c4e]">82%</span>
+                    </div>
+                    <div className="h-2 w-full bg-[#e6e8ea] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#006c4e] w-[82%] rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                      <span className="text-[#3e4947]">Network Latency</span>
+                      <span className="text-[#005c55]">12ms</span>
+                    </div>
+                    <div className="h-2 w-full bg-[#e6e8ea] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#005c55] w-[15%] rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="pt-4 flex items-center gap-3 text-xs font-bold text-[#3e4947] bg-[#e6e8ea]/30 p-4 rounded-xl shadow-inner">
+                  <span className="material-symbols-outlined text-[#006c4e]">check_circle</span>
+                  All regional nodes are healthy
+                </div>
+              </div>
+
+              {/* Activity Feed */}
+              <div className="bg-[#f2f4f6] rounded-xl p-8 space-y-6 shadow-sm border border-[#eceef0]">
+                <h3 className="text-xl font-bold font-headline">Activity Log</h3>
+                <div className="space-y-6">
+                  <div className="flex gap-4 relative">
+                    <div className="w-0.5 bg-[#eceef0] absolute left-4 top-8 bottom-[-24px]"></div>
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm relative z-10 border border-[#eceef0]">
+                      <span className="material-symbols-outlined text-xs text-[#005c55]">update</span>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold">Doctor Profile Updated</p>
+                      <p className="text-xs text-[#3e4947]">Dr. Alan Turing changed availability</p>
+                      <p className="text-[10px] font-bold text-[#0f766e] uppercase">12 mins ago</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 relative">
+                    <div className="w-0.5 bg-[#eceef0] absolute left-4 top-8 bottom-[-24px]"></div>
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm relative z-10 border border-[#eceef0]">
+                      <span className="material-symbols-outlined text-xs text-[#006c4e]">inventory</span>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold">Medical Supply Restock</p>
+                      <p className="text-xs text-[#3e4947]">Batch #4492 processed by Admin</p>
+                      <p className="text-[10px] font-bold text-[#0f766e] uppercase">1 hour ago</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 relative">
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm relative z-10 border border-[#eceef0]">
+                      <span className="material-symbols-outlined text-xs text-[#ba1a1a]">report_problem</span>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold">Login Attempt Warning</p>
+                      <p className="text-xs text-[#3e4947]">Suspicious IP blocked: 192.168.1.1</p>
+                      <p className="text-[10px] font-bold text-[#0f766e] uppercase">4 hours ago</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
   );
 }

@@ -42,6 +42,17 @@ export default function RolePage({ params }: RolePageProps) {
     role?: string;
   };
 
+  const isStitchAdmin = user.role?.toUpperCase() === "ADMIN";
+
+  if (isStitchAdmin) {
+    return (
+      <>
+        <CustomCursor />
+        <RoleDashboard user={user} />
+      </>
+    );
+  }
+
   return (
     <>
       <CustomCursor />

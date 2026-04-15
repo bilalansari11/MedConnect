@@ -52,6 +52,17 @@ export default function DashboardPage() {
     }
   };
 
+  const isStitchAdmin = user.role?.toUpperCase() === "ADMIN";
+
+  if (isStitchAdmin) {
+    return (
+      <>
+        <CustomCursor />
+        {renderDashboard()}
+      </>
+    );
+  }
+
   return (
     <>
       <CustomCursor />

@@ -11,7 +11,7 @@ export default function Header({ transparent = false }: HeaderProps) {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 w-full z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl flex justify-between items-center h-16 px-8 shadow-[0_20px_50px_rgba(0,92,85,0.06)] border-b-0">
+    <header className="sticky top-0 w-full z-40 bg-white flex justify-between items-center h-16 px-8 shadow-[0_20px_50px_rgba(0,92,85,0.06)] border-b-0">
       <div className="flex items-center gap-8">
         <Link href="/" className="text-xl font-bold text-[#005c55] font-headline tracking-tight">
           MedConnect
