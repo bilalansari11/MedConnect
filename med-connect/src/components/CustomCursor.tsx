@@ -87,7 +87,7 @@ export function CustomCursor() {
             top: trail.y - 6,
             width: 12,
             height: 12,
-            background: `radial-gradient(circle, rgba(99, 102, 241, ${trail.opacity * 0.8}) 0%, rgba(139, 92, 246, ${trail.opacity * 0.4}) 50%, transparent 70%)`,
+            background: `radial-gradient(circle, rgba(0, 92, 85, ${trail.opacity * 0.8}) 0%, rgba(128, 213, 203, ${trail.opacity * 0.4}) 50%, transparent 70%)`,
             transform: `scale(${trail.opacity})`,
             transition: "transform 0.1s ease-out, opacity 0.05s ease-out",
           }}
@@ -103,13 +103,13 @@ export function CustomCursor() {
           width: isClicking ? 40 : 32,
           height: isClicking ? 40 : 32,
           background: isClicking
-            ? "radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%)"
-            : "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%)",
+            ? "radial-gradient(circle, rgba(0, 92, 85, 0.4) 0%, rgba(128, 213, 203, 0.2) 40%, transparent 70%)"
+            : "radial-gradient(circle, rgba(0, 92, 85, 0.3) 0%, rgba(128, 213, 203, 0.15) 50%, transparent 70%)",
           transform: isClicking ? "scale(1.3)" : "scale(1)",
           opacity: isVisible ? 1 : 0,
           boxShadow: isClicking
-            ? "0 0 30px rgba(99, 102, 241, 0.5), 0 0 60px rgba(139, 92, 246, 0.3)"
-            : "0 0 20px rgba(99, 102, 241, 0.3), 0 0 40px rgba(139, 92, 246, 0.2)",
+            ? "0 0 30px rgba(0, 92, 85, 0.5), 0 0 60px rgba(128, 213, 203, 0.3)"
+            : "0 0 20px rgba(0, 92, 85, 0.3), 0 0 40px rgba(128, 213, 203, 0.2)",
         }}
       />
 
@@ -122,13 +122,13 @@ export function CustomCursor() {
           width: isClicking ? 12 : 8,
           height: isClicking ? 12 : 8,
           background: isClicking
-            ? "linear-gradient(135deg, #818cf8, #6366f1)"
-            : "linear-gradient(135deg, #a78bfa, #8b5cf6)",
+            ? "linear-gradient(135deg, #80d5cb, #005c55)"
+            : "linear-gradient(135deg, #9cf2e8, #0f766e)",
           transform: isClicking ? "scale(1.5)" : "scale(1)",
           opacity: isVisible ? 1 : 0,
           boxShadow: isClicking
-            ? "0 0 15px rgba(129, 140, 248, 0.8), 0 0 30px rgba(99, 102, 241, 0.5)"
-            : "0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(99, 102, 241, 0.3)",
+            ? "0 0 15px rgba(128, 213, 203, 0.8), 0 0 30px rgba(0, 92, 85, 0.5)"
+            : "0 0 10px rgba(15, 118, 110, 0.6), 0 0 20px rgba(0, 92, 85, 0.3)",
         }}
       />
 
@@ -141,7 +141,7 @@ export function CustomCursor() {
             top: position.y - 25,
             width: 50,
             height: 50,
-            border: "2px solid rgba(139, 92, 246, 0.6)",
+            border: "2px solid rgba(0, 92, 85, 0.6)",
             animation: "ping 0.6s cubic-bezier(0, 0, 0.2, 1)",
           }}
         />
