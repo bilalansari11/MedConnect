@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import checkSymptoms from './SymptomChecker'
+
+function checkSymptoms(input: string): string {
+  const symptom = input.toLowerCase().trim();
+  if (symptom.includes('fever')) return 'You may have a fever. Stay hydrated, rest well, and consider taking a paracetamol. Consult a doctor if it persists beyond 3 days.';
+  if (symptom.includes('headache')) return 'Headaches can be caused by dehydration, stress, or migraine. Drink water, rest in a quiet dark room. See a doctor if severe or persistent.';
+  if (symptom.includes('cough')) return 'A cough may indicate a cold, allergy, or respiratory infection. Stay hydrated and avoid irritants. Consult a doctor if you have difficulty breathing.';
+  if (symptom.includes('cold') || symptom.includes('runny nose')) return 'Common cold symptoms. Rest, drink warm fluids, and use a saline nasal spray. Should resolve in 7-10 days.';
+  if (symptom.includes('stomach') || symptom.includes('nausea') || symptom.includes('vomiting')) return 'Stomach issues may relate to food poisoning or gastritis. Avoid solid food, stay hydrated. See a doctor if vomiting persists.';
+  if (symptom.includes('fatigue') || symptom.includes('tired')) return 'Fatigue can be from lack of sleep, poor diet, or underlying illness. Ensure 7-8 hours of sleep and a balanced diet.';
+  if (symptom.includes('chest pain')) return '⚠️ Chest pain can be serious. Please seek immediate medical attention or call emergency services.';
+  if (symptom.includes('back pain')) return 'Back pain often results from muscle strain. Rest, gentle stretching, and over-the-counter pain relief can help. See a doctor if severe.';
+  return `For "${input}": Please consult a qualified doctor for personalized medical advice. Do not self-diagnose.`;
+}
 
 const SymptomChecker = () => {
   const [input, setInput] = useState('');
