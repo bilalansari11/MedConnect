@@ -46,7 +46,7 @@ export default function LoginPage() {
       <CustomCursor />
       <div className="min-h-screen bg-[#f0f4f4] flex flex-col font-sans text-slate-700">
         {/* Header */}
-        <header className="px-8 py-6 flex justify-between items-center bg-transparent">
+        <header className="px-6 md:px-8 py-6 flex justify-between items-center bg-transparent">
           <Link href="/" className="flex items-center gap-2">
             <h1 className="text-[#0d6e64] font-bold text-xl tracking-tight">MedConnect</h1>
           </Link>
@@ -56,9 +56,9 @@ export default function LoginPage() {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 flex items-center justify-center px-4 py-12">
+        <main className="flex-1 flex items-center justify-center px-4 py-8 md:py-12">
           <div className="w-full max-w-[500px] animate-fade-in-up">
-            <div className="bg-white rounded-[40px] shadow-2xl shadow-teal-900/5 p-10 md:p-14 text-center border border-white">
+            <div className="bg-white rounded-[40px] shadow-2xl shadow-teal-900/5 p-8 sm:p-10 md:p-14 text-center border border-white">
               {/* Title */}
               <div className="mb-10">
                 <h1 className="text-[#0d6e64] text-4xl font-bold mb-3 tracking-tight">Welcome Back</h1>
@@ -162,7 +162,7 @@ export default function LoginPage() {
         </main>
         
         {/* Footer */}
-        <footer className="px-12 py-10 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-slate-400 gap-6">
+        <footer className="px-6 sm:px-12 py-10 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-slate-400 gap-6 md:gap-4">
           <div className="text-center md:text-left">
             <p className="font-bold text-[#0d6e64] text-xs mb-1 tracking-normal">MedConnect Framework</p>
             <p>© 2024. All Rights Reserved. HIPAA Compliant System.</p>

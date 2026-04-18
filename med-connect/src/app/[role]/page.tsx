@@ -15,6 +15,7 @@ export default function RolePage({ params }: RolePageProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [showProfileForm, setShowProfileForm] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -52,13 +53,16 @@ export default function RolePage({ params }: RolePageProps) {
       <div className="flex min-h-screen relative font-body bg-[#f7f9fb] text-[#191c1e]">
         <DashboardSidebar
           onSettingsClick={isPatient ? () => setShowProfileForm(true) : undefined}
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
         />
         <main className="flex-1 flex flex-col min-w-0 bg-[#f7f9fb]">
           <DashboardHeader
             userName={user.name || "User"}
             userRole={user.role || "Patient"}
+            onMenuClick={() => setIsSidebarOpen(true)}
           />
-          <div className="p-8 space-y-8 overflow-y-auto">
+          <div className="p-4 md:p-8 space-y-8 overflow-y-auto">
             <RoleDashboard user={user} />
           </div>
         </main>

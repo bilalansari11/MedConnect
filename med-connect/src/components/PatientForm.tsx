@@ -329,12 +329,12 @@ export default function PatientForm({ onClose }: PatientFormProps) {
           </section>
 
           {/* ── Action Buttons ── */}
-          <div className="flex items-center justify-end gap-4 py-4">
+          <div className="flex flex-col-reverse sm:flex-row items-center sm:justify-end gap-4 py-4">
             {onClose && (
               <button
                 type="button"
                 onClick={onClose}
-                className="px-8 py-4 text-[#3e4947] font-bold rounded-full hover:bg-[#e0e3e5] transition-all active:scale-95"
+                className="w-full sm:w-auto px-8 py-4 text-[#3e4947] font-bold rounded-full hover:bg-[#e0e3e5] transition-all active:scale-95"
               >
                 Cancel
               </button>
@@ -342,7 +342,7 @@ export default function PatientForm({ onClose }: PatientFormProps) {
             <button
               type="submit"
               disabled={submitting}
-              className="px-10 py-4 text-white font-bold rounded-full shadow-lg shadow-[#005c55]/20 hover:saturate-150 transition-all active:scale-95 flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-10 py-4 text-white font-bold rounded-full shadow-lg shadow-[#005c55]/20 hover:saturate-150 transition-all active:scale-95 flex justify-center items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ background: 'linear-gradient(135deg, #005c55, #0f766e)' }}
             >
               {submitting ? (

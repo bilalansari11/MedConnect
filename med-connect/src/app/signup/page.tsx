@@ -58,7 +58,7 @@ export default function SignupPage() {
       <CustomCursor />
       <div className="min-h-screen bg-[#f0f4f4] flex flex-col font-sans text-slate-700">
         {/* Header - Fixed Clinical Style */}
-        <header className="px-8 py-6 flex justify-between items-center bg-transparent">
+        <header className="px-6 md:px-8 py-6 flex justify-between items-center bg-transparent">
           <Link href="/" className="flex items-center gap-2">
             <h1 className="text-[#0d6e64] font-bold text-xl tracking-tight">MedConnect</h1>
           </Link>
@@ -68,8 +68,8 @@ export default function SignupPage() {
         </header>
 
         {/* Main Card Container */}
-        <main className="flex-grow flex items-center justify-center p-4">
-          <div className="bg-white rounded-[40px] shadow-2xl shadow-teal-900/5 w-full p-10 md:p-14 max-w-[550px] text-center border border-white animate-fade-in-up">
+        <main className="grow flex items-center justify-center p-4 py-8 md:py-12">
+          <div className="bg-white rounded-[40px] shadow-2xl shadow-teal-900/5 w-full p-8 sm:p-10 md:p-14 max-w-[550px] text-center border border-white animate-fade-in-up">
             <h2 className="text-[#0d6e64] text-4xl font-bold mb-3 tracking-tight">Create Account</h2>
             <p className="text-slate-500 mb-10 font-medium">Join the clinical dashboard framework.</p>
 
@@ -165,7 +165,7 @@ export default function SignupPage() {
         </main>
 
         {/* Footer */}
-        <footer className="px-12 py-10 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-slate-400 gap-6">
+        <footer className="px-6 sm:px-12 py-10 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-slate-400 gap-6 md:gap-4">
           <div className="text-center md:text-left">
             <p className="font-bold text-[#0d6e64] text-xs mb-1 tracking-normal">MedConnect Framework</p>
             <p>© 2024. All Rights Reserved. HIPAA Compliant System.</p>

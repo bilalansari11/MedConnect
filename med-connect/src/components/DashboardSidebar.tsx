@@ -5,16 +5,23 @@ import { motion } from "framer-motion";
 
 interface DashboardSidebarProps {
   onSettingsClick?: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export default function DashboardSidebar({ onSettingsClick }: DashboardSidebarProps) {
+export default function DashboardSidebar({ onSettingsClick, isOpen = false, onClose }: DashboardSidebarProps) {
   return (
-    <motion.aside 
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5, type: "spring", damping: 20 }}
-      className="flex flex-col h-screen sticky left-0 top-0 border-r-0 bg-teal-50/50 backdrop-blur-xl tracking-tight py-8 px-4 w-64 z-50 shadow-xl shadow-teal-900/5 transition-all"
-    >
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/60 z-50 md:hidden backdrop-blur-sm" 
+          onClick={onClose}
+        />
+      )}
+      <aside 
+        className={`flex flex-col h-[100dvh] fixed md:sticky left-0 top-0 border-r-0 bg-white md:bg-teal-50/50 backdrop-blur-xl tracking-tight py-8 px-4 w-64 z-[60] shadow-2xl md:shadow-xl shadow-teal-900/5 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
       <div className="mb-10 px-4">
         <h1 className="text-xl font-bold font-headline text-teal-900">MedConnect</h1>
         <p className="text-xs font-medium text-teal-800/60 uppercase tracking-widest mt-1">Clinical Portal</p>
@@ -74,6 +81,7 @@ export default function DashboardSidebar({ onSettingsClick }: DashboardSidebarPr
           </button>
         </div>
       </div>
-    </motion.aside>
+    </aside>
+    </>
   );
 }

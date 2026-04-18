@@ -125,7 +125,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
       </motion.section>
 
       {/* Bento Grid Metrics */}
-      <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <motion.section variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <Card tilt padding="none" className="bg-[#f2f4f6] p-6 rounded-xl border-none flex flex-col justify-between h-40 group hover:bg-white transition-all duration-300 shadow-sm">
           <div className="flex justify-between items-start">
             <span className="material-symbols-outlined text-[#005c55] bg-[#9cf2e8] p-2 rounded-xl">groups</span>
@@ -177,7 +177,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
                 <h3 className="text-xl font-bold font-headline">Patient Inflow</h3>
                 <p className="text-sm text-[#3e4947]">Weekly statistical analysis</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button className="px-3 py-1 bg-white rounded-lg text-xs font-bold shadow-sm cursor-pointer border border-[#e0e3e5]">Weekly</button>
                 <button className="px-3 py-1 text-xs font-bold text-[#3e4947] cursor-pointer">Monthly</button>
               </div>
@@ -209,7 +209,7 @@ export function AdminDashboard({ user }: AdminDashboardProps) {
               <button className="text-[#005c55] text-sm font-bold flex items-center gap-1 cursor-pointer">Total: {users.length}</button>
             </div>
             <div className="overflow-x-auto max-h-[400px]">
-              <table className="w-full text-left">
+              <table className="w-full text-left min-w-[600px]">
                 <thead className="sticky top-0 bg-[#f2f4f6] z-10">
                   <tr className="text-[10px] font-bold text-[#3e4947] uppercase tracking-widest bg-[#e6e8ea]/50">
                     <th className="px-6 py-4">User Details</th>

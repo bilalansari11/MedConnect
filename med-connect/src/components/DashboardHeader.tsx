@@ -6,21 +6,28 @@ import { motion } from "framer-motion";
 interface DashboardHeaderProps {
   userName?: string;
   userRole?: string;
+  onMenuClick?: () => void;
 }
 
 export default function DashboardHeader({
   userName = "User",
   userRole = "Admin",
+  onMenuClick,
 }: DashboardHeaderProps) {
   return (
     <motion.header 
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-2xl flex justify-between items-center h-16 px-8 border-b-0 shadow-[0_20px_50px_rgba(0,92,85,0.06)]"
+      className="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-2xl flex justify-between items-center h-16 px-4 md:px-8 border-b-0 shadow-[0_20px_50px_rgba(0,92,85,0.06)]"
     >
       <div className="flex items-center gap-4 flex-1">
-        <div className="relative max-w-md w-full">
+        {onMenuClick && (
+          <button onClick={onMenuClick} className="md:hidden p-2 text-slate-500 hover:text-teal-700 transition-colors">
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+        )}
+        <div className="relative max-w-md w-full hidden md:block">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
             search
           </span>

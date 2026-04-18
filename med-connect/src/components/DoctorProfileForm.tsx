@@ -94,7 +94,7 @@ export default function DoctorProfileForm() {
           <div className="lg:col-span-8 space-y-10">
             
             {/* Identity Card */}
-            <section className="bg-[#f2f4f6] rounded-[2.5rem] p-10 shadow-sm hover:shadow-xl hover:shadow-[#005c55]/5 transition-all duration-300 border border-white/50">
+            <section className="bg-[#f2f4f6] rounded-[2.5rem] p-6 md:p-10 shadow-sm hover:shadow-xl hover:shadow-[#005c55]/5 transition-all duration-300 border border-white/50">
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-12 bg-[#9cf2e8] rounded-2xl flex items-center justify-center">
                   <span className="material-symbols-outlined text-[#005c55]">badge</span>
@@ -158,7 +158,7 @@ export default function DoctorProfileForm() {
             </section>
 
             {/* Consultation Card */}
-            <section className="bg-[#f2f4f6] rounded-[2.5rem] p-10 shadow-sm border border-white/50">
+            <section className="bg-[#f2f4f6] rounded-[2.5rem] p-6 md:p-10 shadow-sm border border-white/50">
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-12 bg-[#80f9c8] rounded-2xl flex items-center justify-center">
                   <span className="material-symbols-outlined text-[#006c4e]">description</span>
@@ -202,7 +202,7 @@ export default function DoctorProfileForm() {
           <div className="lg:col-span-4 space-y-10">
             
             {/* Availability Panel */}
-            <section className="bg-white rounded-[2.5rem] p-10 border border-[#e0e3e5] shadow-sm relative overflow-hidden">
+            <section className="bg-white rounded-[2.5rem] p-6 md:p-10 border border-[#e0e3e5] shadow-sm relative overflow-hidden">
                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[#005c55] to-[#80f9c8]"></div>
                <h3 className="text-2xl font-bold mb-8 font-['Plus_Jakarta_Sans'] text-[#005c55]">Availability Settings</h3>
                
@@ -296,7 +296,7 @@ export default function DoctorProfileForm() {
             </section>
 
             {/* Action Card */}
-            <div className="bg-linear-to-br from-[#005c55] to-[#0f766e] p-10 rounded-[2.5rem] text-white shadow-2xl shadow-[#005c55]/20 flex flex-col items-center text-center space-y-6">
+            <div className="bg-linear-to-br from-[#005c55] to-[#0f766e] p-6 md:p-10 rounded-[2.5rem] text-white shadow-2xl shadow-[#005c55]/20 flex flex-col items-center text-center space-y-6">
                <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md">
                  <span className="material-symbols-outlined text-5xl">rocket_launch</span>
                </div>

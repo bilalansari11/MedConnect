@@ -73,8 +73,8 @@ export default function HomePage() {
 
         <main className="flex-1">
           {/* Hero Section */}
-          <section id="home" className="relative px-8 pt-16 pb-32 overflow-hidden">
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <section id="home" className="relative px-4 md:px-8 pt-12 md:pt-16 pb-20 md:pb-32 overflow-hidden">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div className="relative z-10">
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.1 }}
-                  className="text-6xl lg:text-7xl font-extrabold font-headline leading-[1.1] text-[#191c1e] mb-8 tracking-tight"
+                  className="text-5xl md:text-6xl lg:text-7xl font-extrabold font-headline leading-[1.1] text-[#191c1e] mb-6 md:mb-8 tracking-tight"
                 >
                   AI-Powered <span className="text-transparent bg-clip-text bg-linear-to-r from-[#005c55] to-[#0f766e]">Telemedicine</span> Platform
                 </motion.h1>
@@ -105,13 +105,13 @@ export default function HomePage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
-                  className="flex flex-wrap gap-4"
+                  className="flex flex-col sm:flex-row flex-wrap gap-4"
                 >
-                  <button className="bg-linear-to-br from-[#005c55] to-[#0f766e] text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2 hover:shadow-xl hover:shadow-[#005c55]/20 transition-all cursor-pointer">
+                  <button className="w-full sm:w-auto justify-center bg-linear-to-br from-[#005c55] to-[#0f766e] text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2 hover:shadow-xl hover:shadow-[#005c55]/20 transition-all cursor-pointer">
                     Book Appointment
                     <span><Calendar /></span>
                   </button>
-                  <button className="bg-[#e0e3e5] text-[#191c1e] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e6e8ea] transition-all cursor-pointer">
+                  <button className="w-full sm:w-auto justify-center bg-[#e0e3e5] text-[#191c1e] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#e6e8ea] transition-all cursor-pointer">
                     Find Doctors
                   </button>
                 </motion.div>
@@ -158,9 +158,9 @@ export default function HomePage() {
           </section>
 
           {/* Stats Section */}
-          <section className="py-20 bg-[#f2f4f6]">
-            <div className="max-w-7xl mx-auto px-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <section className="py-12 md:py-20 bg-[#f2f4f6]">
+            <div className="max-w-7xl mx-auto px-4 md:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                 {[
                   { val: "99.8%", label: "Uptime Guarantee" },
                   { val: "500+", label: "Expert Specialists" },
@@ -184,20 +184,20 @@ export default function HomePage() {
           </section>
 
           {/* Discovery & Filters */}
-          <section id="find-doctors" className="py-32 px-8">
+          <section id="find-doctors" className="py-20 md:py-32 px-4 md:px-8">
             <div className="max-w-7xl mx-auto">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+                className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 md:gap-8 mb-10 md:mb-16"
               >
                 <div className="max-w-2xl">
                   <h2 className="text-4xl font-extrabold font-headline mb-4 tracking-tight">Discover Specialists</h2>
                   <p className="text-[#3e4947] text-lg">Filter through our curated network of certified medical professionals using AI-enhanced matching.</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   <div className="px-4 py-2 rounded-full bg-[#e0e3e5] text-sm font-semibold flex items-center gap-2 cursor-pointer hover:bg-[#005c55]/10 transition-all">
                     Specialty
                     <span className="material-symbols-outlined text-sm">keyboard_arrow_down</span>
@@ -324,19 +324,19 @@ export default function HomePage() {
           </section>
 
           {/* Testimonials */}
-          <section id="patient-stories" className="py-32 bg-white relative">
-            <div className="max-w-7xl mx-auto px-8">
+          <section id="patient-stories" className="py-20 md:py-32 bg-white relative">
+            <div className="max-w-7xl mx-auto px-4 md:px-8">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center mb-16"
+                className="text-center mb-12 md:mb-16"
               >
-                <h2 className="text-4xl font-extrabold font-headline mb-4">Patient Stories</h2>
+                <h2 className="text-3xl md:text-4xl font-extrabold font-headline mb-4">Patient Stories</h2>
                 <p className="text-[#3e4947] max-w-xl mx-auto">Real experiences from our global community of patients who found healing through MedConnect.</p>
               </motion.div>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {[
                   {
                     name: "David Markham",

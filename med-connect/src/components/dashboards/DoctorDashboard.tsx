@@ -281,10 +281,10 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
 
           {/* Tab Bar */}
           <div className="flex items-center justify-between">
-            <div className="flex gap-2 p-1 bg-[#f2f4f6] rounded-2xl">
+            <div className="flex gap-2 p-1 bg-[#f2f4f6] rounded-2xl overflow-x-auto no-scrollbar">
               <button
                 onClick={() => setActiveTab("appointments")}
-                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                   activeTab === "appointments"
                     ? "bg-white text-[#005c55] shadow-sm"
                     : "text-[#3e4947] hover:text-[#005c55]"
@@ -297,7 +297,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
               </button>
               <button
                 onClick={() => setActiveTab("patients")}
-                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                   activeTab === "patients"
                     ? "bg-white text-[#005c55] shadow-sm"
                     : "text-[#3e4947] hover:text-[#005c55]"
@@ -310,7 +310,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
               </button>
               <button
                 onClick={() => setActiveTab("prescriptions")}
-                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                   activeTab === "prescriptions"
                     ? "bg-white text-[#005c55] shadow-sm"
                     : "text-[#3e4947] hover:text-[#005c55]"
@@ -430,7 +430,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
                 </div>
               ) : (
                 <div className="overflow-x-auto rounded-xl">
-                  <table className="w-full text-left border-separate border-spacing-y-1">
+                  <table className="w-full text-left border-separate border-spacing-y-1 min-w-[600px]">
                     <thead>
                       <tr className="text-[#3e4947] text-[10px] uppercase tracking-widest font-bold">
                         <th className="px-6 py-3">Patient</th>
@@ -476,7 +476,7 @@ export function DoctorDashboard({ user }: DoctorDashboardProps) {
                 </div>
               ) : (
                 <div className="overflow-x-auto rounded-xl">
-                  <table className="w-full text-left border-separate border-spacing-y-1">
+                  <table className="w-full text-left border-separate border-spacing-y-1 min-w-[600px]">
                     <thead>
                       <tr className="text-[#3e4947] text-[10px] uppercase tracking-widest font-bold">
                         <th className="px-6 py-3">Patient & Medication</th>

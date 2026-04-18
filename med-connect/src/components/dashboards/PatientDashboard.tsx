@@ -630,7 +630,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
                     ))}
                   </select>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-[#3e4947] uppercase tracking-widest pl-1">Preferred Date</label>
                     <input
@@ -663,7 +663,7 @@ export function PatientDashboard({ user }: PatientDashboardProps) {
                         </p>
                       </div>
                     ) : (
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {availableSlots.map((slot) => (
                           <button
                             key={slot.id}

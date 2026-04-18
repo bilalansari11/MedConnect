@@ -25,7 +25,7 @@ export default function Footer({ variant = "landing" }: FooterProps) {
 
   // The new Stitch UI landing footer
   return (
-    <footer className="bg-[#191c1e] text-white py-20 px-8">
+    <footer className="bg-[#191c1e] text-white py-16 md:py-20 px-6 md:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-1">
           <span className="text-2xl font-bold font-headline tracking-tight text-white mb-6 block">MedConnect</span>
